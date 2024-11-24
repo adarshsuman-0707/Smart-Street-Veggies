@@ -82,23 +82,18 @@ console.log(rs);
 
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-{/* // <<<<<<< master */}
+
         <Route path="/contact" element={<Home />} />
         <Route path="/home" element={<Landing />} />
         <Route path="/" element={<Landing />} />
+     
 
-
-
-
-{/* ======= */}
-        {/* <Route path="/" element={<Home />} /> */}
-//         <Route path="/contact" element={<Home />} />
-//         <Route path="/map-page" element={<ProtectedRoute isLoggedIn={isLoggedIn}>
+<Route path="/map-page" element={<ProtectedRoute isLoggedIn={isLoggedIn}>
               <MapPages />
             </ProtectedRoute>}/>
-{/* // >>>>>>> master */}
+
+
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        {/* <Route path="/signup" element={<Signup setIsLoggedIn={setIsLoggedIn} />} /> */}
         <Route
   path="/signup"
   element={

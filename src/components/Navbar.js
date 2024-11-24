@@ -199,7 +199,12 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+         
 
+
+            {/* </ul>
+         
+          </div> */} 
 
 <div className="collapse navbar-collapse justify-content-center">
 <ul className="navbar-nav d-flex flex-wrap align-items-center mb-2 mb-lg-0" style={{ gap: "3px" }}>

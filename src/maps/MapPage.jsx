@@ -1,24 +1,23 @@
-// import React, { useState } from 'react';
-// import {useEffect } from 'react';
-// import MapDisplay from './MapDisplay';
-// import { getFromLocalStorage } from '../services/operations/SecureLocal';
+// import React, { useState, useEffect } from 'react';
 // import { useDispatch } from 'react-redux';
-// import { FetchUserData, login } from '../services/operations/authCall';
+// import { FetchUserData } from '../services/operations/authCall';
+// import { getFromLocalStorage } from '../services/operations/SecureLocal';
+// import MapDisplay from './MapDisplay';
+// import GetDirection from './GetDirection';
 
 // function MapPages() {
 //     // Retrieve and sanitize accountType
 //     let accountType = localStorage.getItem("accountType");
-//     accountType = JSON.parse(accountType)
-//     // const accountType = rawAccountType?.split(" ")[0]; // Extract first word
-//     const userdata = getFromLocalStorage("userData");
-//     const [fetchuser,setFetchuser]=useState("");
-//     const dispatch=useDispatch();
+//     accountType = JSON.parse(accountType);  // Parse accountType from localStorage
 
-//     // console.log("Raw Account Type:", rawAccountType);
-//     console.log("Sanitized Account Type:", userdata.accountType);
-//     console.log("User Data:", userdata.id);
-//     const userId=userdata.id;
+//     const userdata = getFromLocalStorage("userData");  // Get user data from localStorage
+//     const [fetchuser, setFetchuser] = useState(null);  // Store fetched user data
+//     const dispatch = useDispatch();
+//     const userId = userdata?.id;  // User ID
+//     const [customerPos,setCustomerPos]=useState({lat:"",lng:""});
+//     const [cartManPos,setCartManPos]=useState({lat:"",lng:""});
 
+// <<<<<<< master
 //     // useEffect(() => {
 //     //     const fetchData = async () => {
 //     //       try {
@@ -48,34 +47,71 @@
 //                         fetchData();
 //                     }, [dispatch, userId]); 
 
+// =======
+//     // Log for debugging
+//     console.log("Sanitized Account Type:", accountType);
+//     console.log("User Data:", userdata);
 
-//     // const response =dispatch(FetchUserData(userId));
-//     //             const responded=await response.json();
-//     //             console.log("Fetched user data:", response);
-//     //             setUser(responded);  // Set the fetched data
-//     // if (!fetchuser) {
-//     //     return <div>Loading user data...</div>;
-//     // }
+//     // Fetch user data on component mount
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             if (userId) {
+//                 try {
+//                     // Dispatch the action to fetch user data
+//                     const response = await dispatch(FetchUserData(userId));  // Make sure FetchUserData returns the data correctly
+//                     console.log("Fetched user data:", response);
+//                     setCartManPos({lat:response.position.lat,lng:response.position.lng})
+//                     setFetchuser(response);  // Set the fetched data to state
+//                 } catch (error) {
+//                     console.error("Error fetching online cart data:", error);
+//                 }
+//             }
+//         };
 
-//     console.log("Fetched user:", fetchuser);
+//         fetchData();
+//     }, [dispatch, userId]);  // Fetch data when userId or dispatch changes
+// >>>>>>> master
 
-//     // Assuming 'newdata' is an array inside `fetchUser.data`, map through it
-//     const usersList = fetchuser?.data?.newdata || [];
-//       console.log(usersList,"userlist");
+//     // Check if the user data is loaded
+//     if (!fetchuser) {
+//         return <div>Loading user data...</div>;  // Show loading while data is being fetched
+//     }
 
+//     // Handle Accept and Delete button actions
+//     const handleAccept = (user) => {
+//         console.log(`User with ID: ${userId} has been accepted.`);
+//         // Implement your accept logic here, like dispatching an action
+//         console.log("position of user",user.position);
+//         setCustomerPos({lat:user.position.lat,lng:user.position.lng})
+//         console.log("position of user",user.firstName);
+
+        
+//     };
+
+//     const handleDelete = (userId) => {
+//         console.log(`User with ID: ${userId} has been deleted`);
+//         // Implement your delete logic here, like dispatching an action
+//     };
+//     // Access the user data from fetchuser (assuming newdata is inside fetchuser.data)
+//     const usersList = fetchuser.cartBooked|| [];  // Default to empty array if no data
+//     console.log("Users psotion:", fetchuser.position);
+//     console.log("Users List:", usersList);
+//     console.log("Users List Length:", usersList.length);
+    
+//     // Render the component based on account type
 //     return (
-//         <div>
-//             {/* Map Display Component */}
-//             {/* <MapDisplay /> */}
+        
 
-//            { accountType === "CartMan" ? (
-//                 <div style={{
-//                     marginTop: "20px",
-//                     padding: "20px",
-//                     backgroundColor: "lightblue",
-//                     border: "1px solid black",
-//                     color: "black",
-
+        
+//         <div className="">
+//             <MapDisplay/>
+//             <GetDirection
+//             destination={customerPos}
+//             current={cartManPos}
+//             />
+//         <div className="container my-4">
+// 
+// <<<<<<< master
 //                 }}>
 
 //                     hanji dosto
@@ -94,36 +130,85 @@
 //                     ) : (
 //                         <div>No user data available</div>
 //                     )}
+// =======
+//             {accountType === "CartMan" ? (
+//                 <div className="card shadow-sm">
+//                     <div className="card-body">
+//                         {/* <h2 className="card-title text-center">CartMan Section</h2> */}
+//                         {usersList.length > 0 ? (
+//                             <div>
+//                                 <h3>Cart Book Request </h3>
+//                                 <ul className="list-group">
+//                                     {usersList.map((userData, index) => (
+//                                         <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+//                                             <div>
+//                                                 <p><strong>First Name:</strong> {userData.user?.firstName}</p>
+//                                                 <p><strong>Number:</strong> {userData.user?.number}</p>
+//                                             </div>
+//                                             <div>
+//                                                 <button
+//                                                     className="btn btn-success btn-sm me-2"
+//                                                     onClick={() => handleAccept(userData.user)}
+//                                                 >
+//                                                     Accept
+//                                                 </button>
+//                                                 <button
+//                                                     className="btn btn-danger btn-sm"
+//                                                     onClick={() => handleDelete(userData.user)}
+//                                                 >
+//                                                     Delete
+//                                                 </button>
+//                                             </div>
+//                                         </li>
+//                                     ))}
+//                                 </ul>
+//                             </div>
+//                         ) : (
+//                             <div>No user data available</div>
+//                         )}
+//                     </div>
+// >>>>>>> master
 //                 </div>
-//             ) : (<div>
-//                 dosto me hu customer
-//                 newdata
-//                 </div>)
-// }
+//             ) : (
+//                 <div className="card shadow-sm">
+//                     <div className="card-body">
+//                         <h2 className="card-title text-center">Customer Section</h2>
+//                         <p className="text-center">You are viewing the customer view.</p>
+//                     </div>
+//                 </div>
+//             )}
 //         </div>
+//         </div>
+//         // </>
 //     );
 // }
 
 // export default MapPages;
-
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { FetchUserData } from '../services/operations/authCall';
 import { getFromLocalStorage } from '../services/operations/SecureLocal';
+// <<<<<<< master
 import Footer from '../components/Footer'
 import '../StyleSheet/MapPage.css'
 import { updateCartStatus, deleteCart, cartBookVeggie } from "../services/operations/cartApi";
 import toast from 'react-hot-toast';
 // import { FetchUserData } from '../services/operations/authCall';
-function MapPages() {
-    // Retrieve and sanitize accountType
-    let accountType = localStorage.getItem("accountType");
-    accountType = JSON.parse(accountType);  // Parse accountType from localStorage
+// =======
+import MapDisplay from './MapDisplay';
+import GetDirection from './GetDirection';
 
+// >>>>>>> master
+function MapPages() {
+    let accountType = localStorage.getItem("accountType");
+    accountType = JSON.parse(accountType); // Parse accountType from localStorage
+
+// <<<<<<< master
     const userdata = getFromLocalStorage("userData");  // Get user data from localStorage
     const [fetchuser, setFetchuser] = useState(null);  // Store fetched user data
     // const [fetchcartuser, setFetchcartuser] = useState(null);  // Store fetched user data
-
+    let[cartManPos,setCartManPos]=useState(null)
+    let[customerPos,setCustomerPos]=useState(null)
     const dispatch = useDispatch();
     const userId = userdata?.id;  // User ID
     console.log(userId, "yh user ki id h");
@@ -131,8 +216,6 @@ function MapPages() {
     console.log(BookId, "yh booking id thi ");
 
     let [veggies, setVeggies] = useState([])
-
-    // Fetch veggies when the component mounts or BookId changes
     useEffect(() => {
         const fetchVeggies = async () => {
             try {
@@ -181,7 +264,7 @@ function MapPages() {
         // Loop through veggieIds to find the first match
         console.log(veggieIds, "dfasdf");
         
-     deleteFromLocalStorage()
+ 
         const matchedStatus = cartStatus.find(item => item.id === veggieIds);
         if (matchedStatus.status == "delivered") {
 
@@ -195,71 +278,143 @@ function MapPages() {
 
     console.log(veggies, "nhi ayi");
     // Fetch user data on component mount
+    console.log("User Data:", userdata);
+
+    // Fetch user data on component mount
     useEffect(() => {
         const fetchData = async () => {
 
             if (userId) {
                 try {
-                    // Dispatch the action to fetch user data
-                    const response = await dispatch(FetchUserData(userId));  // Make sure FetchUserData returns the data correctly
+                    const response = await dispatch(FetchUserData(userId));
                     console.log("Fetched user data:", response);
-                    setFetchuser(response);  // Set the fetched data to state
+    
+                    if (response.position && response.position.lat && response.position.lng) {
+                        setCartManPos({
+                            lat: parseFloat(response.position.lat),
+                            lng: parseFloat(response.position.lng),
+                        });
+                    } else {
+                        console.error("Invalid CartMan position:", response.position);
+                    }
+    
+                    setFetchuser(response);
                 } catch (error) {
-                    console.error("Error fetching online cart data:", error);
+                    console.error("Error fetching user data:", error);
                 }
             }
         };
-
+    
         fetchData();
+
 
     }, [dispatch, userId]);  // Fetch data when userId or dispatch changes
  
+
+
+    
+
+    // If user data is not loaded, show loading
+// >>>>>>> master
     if (!fetchuser) {
-        return <div>Loading user data...</div>;  // Show loading while data is being fetched
+        return <div>Loading user data...</div>;
     }
-    const handleAccept = async (cartId, currentStatus) => {
-        const newStatus = currentStatus === "deactivated" ? "accepted" : "delivered";
-        console.log(cartId,"ACcepted");
-        try {
-            const updatedCart = await updateCartStatus(cartId, newStatus);
-            console.log(updatedCart, "yh pr check kr rha hu ki horha hai ya nhi kuch");
-            console.log(`Cart with ID: ${cartId} has been updated to status: ${newStatus}`);
+    // const handleAccepts = async (cartId, currentStatus) => {
+    //     const newStatus = currentStatus === "deactivated" ? "accepted" : "delivered";
+    //     console.log(cartId,"ACcepted");
+    //     try {
+    //         const updatedCart = await updateCartStatus(cartId, newStatus);
+    //         console.log(updatedCart, "yh pr check kr rha hu ki horha hai ya nhi kuch");
+    //         console.log(`Cart with ID: ${cartId} has been updated to status: ${newStatus}`);
 
-            setFetchuser((prev) => ({
-                ...prev,
-                cartBooked: prev.cartBooked.map((item) =>
-                    item._id === cartId ? { ...item, status: newStatus } : item
-                ),
-            }));
-        } catch (error) {
-            console.error("Error updating cart status:", error.message);
-        }
-    };
+    //         setFetchuser((prev) => ({
+    //             ...prev,
+    //             cartBooked: prev.cartBooked.map((item) =>
+    //                 item._id === cartId ? { ...item, status: newStatus } : item
+    //             ),
+    //         }));
+    //     } catch (error) {
+    //         console.error("Error updating cart status:", error.message);
+    //     }
+        
+    // };
     // Function to delete a value from localStorage array
-    const deleteFromLocalStorage = (key, valueToDelete) => {
 
-        // Step 1: Retrieve the array from localStorage
-        const data = JSON.parse(localStorage.getItem(key));
-        console.log(data,"fsfsaf delete krna hai",valueToDelete);
 
-        // Step 2: Check if data exists and is an array
-        if (!Array.isArray(data)) {
-            console.error("Data is not an array or does not exist.");
-            return;
+// <<<<<<< master
+// =======
+    // const handleAccept = (user) => {
+    //     console.log(`User with ID: ${user.id} has been accepted.`);
+    //     console.log("User position:", user.position);
+    
+    //     if (user.position && user.position.lat && user.position.lng) {
+    //         setCustomerPos({
+    //             lat: parseFloat(user.position.lat),
+    //             lng: parseFloat(user.position.lng),
+    //         });
+    //     } else {
+    //         console.error("Invalid customer position:", user.position);
+    //     }
+    // };
+//     const handleAccept= (user) => {
+//         console.log(`User with ID: ${user._id} has been accepted.`);
+//         console.log("User position:", user.position);
+//         console.log("cartman positon",cartManPos);
+        
+        
+        
+//         if (user.position ) {
+//             setCustomerPos({
+//                 lat: parseFloat(user.position.lat),
+//                 lng: parseFloat(user.position.lng),
+//             });
+//         } else {
+//             console.error("Invalid customer position:", user.position);
+//         }
+// // >>>>>>> master
+//     };
+const handleAcceptAndUpdate = async (user, cartId, currentStatus) => {
+    try {
+        // Log user information
+        console.log(`User with ID: ${user._id} has been accepted.`);
+        console.log("User position:", user.position);
+        console.log("CartMan position:", cartManPos);
+
+        // Handle user position
+        if (user.position) {
+            setCustomerPos({
+                lat: parseFloat(user.position.lat),
+                lng: parseFloat(user.position.lng),
+            });
+        } else {
+            console.error("Invalid customer position:", user.position);
         }
 
-        // Step 3: Filter the array to remove the specific value
-        const updatedData = data.filter(item => item !== valueToDelete);
+        // Determine new cart status
+        const newStatus = currentStatus === "deactivated" ? "accepted" : "delivered";
+        console.log(cartId, "Accepted");
 
-        // Step 4: Update localStorage with the new array
-        localStorage.setItem(key, JSON.stringify(updatedData));
+        // Update cart status
+        const updatedCart = await updateCartStatus(cartId, newStatus);
+        console.log(updatedCart, "Checking if the update happened successfully");
+        console.log(`Cart with ID: ${cartId} has been updated to status: ${newStatus}`);
 
-        // Step 5: Log for debugging
-        console.log("Updated localStorage data:", updatedData);
+        // Update state for fetched users
+        setFetchuser((prev) => ({
+            ...prev,
+            cartBooked: prev.cartBooked.map((item) =>
+                item._id === cartId ? { ...item, status: newStatus } : item
+            ),
+        }));
+    } catch (error) {
+        console.error("Error updating cart status:", error.message);
+    }
+};
 
+    console.log("customer positon",customerPos);
+    
 
-    };
-
+// <<<<<<< master
     // Usage Example
 
 
@@ -278,15 +433,22 @@ function MapPages() {
     };
 
     console.error(veggies)
-    const usersList = fetchuser.cartBooked || [];  // Default to empty array if no data
-    return (
+    const usersList = fetchuser.cartBooked || [];  // Default to empty array if no dat
+    console.log("CartMan Position:", cartManPos);
+    console.log("Users List:", usersList);
 
-        <>
+    return (
+    <>
+            <div className="">
+            <MapDisplay currentLocation={cartManPos} destinationLocation={customerPos} />
+
+       </div>
 
             <div className="container my-4">
                 {accountType === "CartMan" ? (
                     <div className="card shadow-sm">
                         <div className="card-body">
+
                             <h2 className="card-title text-center text3d">CartMan Section</h2>
                             {usersList.length > 0 ? (
                                 <div>
@@ -303,7 +465,7 @@ function MapPages() {
                                                     {userData.status != "delivered" ? (<>
                                                         <button
                                                             className={`btn btn-sm ${userData.status === "deactivated" ? "btn-success" : "btn-primary"} me-2`}
-                                                            onClick={() => handleAccept(userData._id, userData.status)}
+                                                            onClick={() => handleAcceptAndUpdate(userData.user,userData._id, userData.status)}
                                                         >
                                                             {userData.status === "deactivated" ? "Accept" : "Deliver"}
                                                         </button>
@@ -318,17 +480,15 @@ function MapPages() {
                                                             Delete
                                                         </button>
                                                   
+
                                                 </div>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
                             ) : (
-                                <div>
+                                <div>No user data available</div>
 
-                                    No user data available
-
-                                </div>
                             )}
                         </div>
                     </div>
@@ -340,10 +500,11 @@ function MapPages() {
                             <div className="row">
                                 {veggies.length > 0 ? (
                                     veggies.map((user, index) => {
+                                        let i=0;
                                         // Get the status for the user (assuming you want the status of the first cart item)
                                         const status =
-                                            user.cartStatus && user.cartStatus.length > 0
-                                                ? getStatusForCartBook(user.cartStatus, user.cartStatus[index].id) // Show status of the first item
+                                            user.cartStatus && user.cartStatus.length > 0 
+                                                ? getStatusForCartBook(user.cartStatus, user.cartStatus[i++].id) // Show status of the first item
                                                 : "Loading...";
 
                                         return (
@@ -391,8 +552,9 @@ function MapPages() {
             </div>
 
             <div  className='FooterMapPage'><Footer /></div>
-        </>
-    );
-}
+    </>
 
+    )
+
+}
 export default MapPages;

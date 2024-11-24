@@ -13,15 +13,5 @@
     transform: scale(0.9);
     transition: 1s;
 }
-.text3d{
-    color: #192f45;
-    letter-spacing: .15em;
-    font-weight: bold;
-    /* text-decoration: dashed; */
-    text-shadow: 
-      -1px -1px 1px #efede3, 
-      2px 8px 35px rgba(0, 0, 0, 0.9);
-  
+
  
- 
-}

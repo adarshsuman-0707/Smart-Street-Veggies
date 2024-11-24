@@ -104,7 +104,7 @@ export function makeCartOnline(token, navigate) {
         );
   
         console.log("makeCartOnline API RESPONSE............", response);
-        navigate("/map-display");
+        navigate("/map-page");
         // navigate("")
         // need to add navigation
   
@@ -227,6 +227,7 @@ export const cartBookVeggie = async (userId) => {
   try {
     let id = localStorage.getItem("userId");
     console.log(id);
+    id=JSON.parse(id)
     
     // Make API call with dynamic userId and pass the id as query parameter
     const response = await apiConnector("GET", `${USER_VEGGIES_API}/${userId}?id=${id}`);

@@ -179,7 +179,7 @@ exports.cartBookVeggie = async (req, res) => {
   const userId = req.params.userId; // Fetch user ID from request params
   const bookId = req.query.id; // Fetch id from query parameters
   console.log("User ID from Params:", userId);
-  console.log("Book ID from Query:", bookId);
+  console.log("Book ID from Query:", bookId); 
 
   try {
     // Check if the userId and bookId are valid ObjectIds

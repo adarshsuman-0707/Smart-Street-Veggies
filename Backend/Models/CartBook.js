@@ -6,6 +6,7 @@ const cartBookSchema=mongoose.Schema({
         ref:"User",
         required:true,
         // expires:2*60
+// <<<<<<< master
     },
     status: {
         type: String,
@@ -14,4 +15,7 @@ const cartBookSchema=mongoose.Schema({
     },
     
 }, { timestamps: true } )
+
+   
+
 module.exports=mongoose.model("CartBook",cartBookSchema);

@@ -107,9 +107,11 @@ export function login(email,password, navigate) {
           throw new Error(response.data.message)
         }
   
-       data==="CartMan" ? navigate("/addVeggie"): data==="Customer" ?  navigate("/map-display") : navigate("/map-display");
+       data==="CartMan" ? navigate("/addVeggie"): data==="Customer" ?  navigate("/map-page") : navigate("/map-page");
         // localStorage.setItem("accountType", JSON.stringify(decode.accountType));
         localStorage.setItem("accountType", JSON.stringify(response.data.accountType))
+        localStorage.setItem("userId", JSON.stringify(response.data.user._id))
+
         saveToLocalStorage("isLoggedIn",true)
 // <<<<<<< master
 //         saveToLocalStorage("userData", {accountType:response.data.accountType,firstName:response.data.user.firstName ,lastName:response.data.user.lastName,email:response.data.user.email,number:response.data.user.number})
