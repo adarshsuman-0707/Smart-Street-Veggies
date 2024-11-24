@@ -200,30 +200,6 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Desktop Navbar */}
-          {/* <div className="collapse navbar-collapse justify-content-center">
-            <ul className="navbar-nav mb-2 mb-lg-0">
-              <li className="nav-item mx-3">
-                <Link to="/home" id="Hovering"className="nav-link">Home</Link>
-              </li>
-         
-              <li className="nav-item mx-3">
-{/* // <<<<<<< master */}
-                {/* <Link to="/contact" id="Hovering" className="nav-link">Know & Reach Us</Link> */}
-{/* // ======= */}
-              {/* <Link to="/contact" id="Hovering" className="nav-link">Contact</Link> */}
-{/* // >>>>>>> master */}
-              {/* </li>
-            {accountType==="Customer" && token ?(<>   <li className="nav-item mx-3">
-                <Link to="/map-display" id="Hovering" className="nav-link">MAP</Link>
-              </li></>):accountType==="CartMan" && token?<>  <li className="nav-item mx-3">
-                <Link to="/addveggie" id="Hovering" className="nav-link">AddVeggie</Link>
-              </li></>:<></>} */}
-
-
-            {/* </ul>
-         
-          </div> */} 
 
 <div className="collapse navbar-collapse justify-content-center">
 <ul className="navbar-nav d-flex flex-wrap align-items-center mb-2 mb-lg-0" style={{ gap: "3px" }}>
@@ -297,18 +273,7 @@ const Navbar = () => {
             </Link>
           </li>
           
-          {/* <li className="mb-2" data-bs-dismiss="offcanvas">
-            <Link
-// <<<<<<< master
-// =======
-              to="/"
-              className="text-primary"
-              style={{ textDecoration: 'none', width: '100%', display: 'block', padding: '10px', borderRadius: '5px' }}
-             // Dismiss the offcanvas
-            >
-              About
-            </Link>
-          </li> */}
+      
           <li className="mb-2" data-bs-dismiss="offcanvas">
             <Link
               to="/contact"
@@ -326,7 +291,7 @@ const Navbar = () => {
               style={{ textDecoration: 'none', width: '100%', display: 'block', padding: '10px', borderRadius: '5px' }}
               // Dismiss the offcanvas
             >
-             MapPage
+             VeggieList
             </Link>
           </li>
           {accountType==="Customer" && token ?(<>   <li className="mb-2" data-bs-dismiss="offcanvas">
